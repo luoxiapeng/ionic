@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript">
+
+    // 1、获取浏览器关于indexDB的一些对象，为了浏览器兼容性
+    window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+    window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+    window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+    window.IDBCursor = window.IDBCursor || window.webkitIDBCursor || window.msIDBCursor;
+
+    // 2、定义一些数据库配置信息
+    var dbInfo = {
+      dbName:"IndexDB",  // 数据库的名称
+      dbVersion:2018     // 数据库的版本号
+    };
+
+    // 3、创建数据库连接
+    var dbContent = window.indexedDB.open(dbInfo.dbName, dbInfo.dbVersion);
+
+    //  3.1控制数据库版本升级的方法，创建新store（表），或者是修改，都在这里面执行
+    dbContent.onupgradeneeded = function (e) {
+      console.log("数据库版本发生变化");
+    }
+    //  3.2当数据库连接成功的时候执行的方法，我们一般的增删改查都在这里面进行操作
+    dbContent.onsuccess = function (e) {
+      console.log(e);
+      console.log("数据库连接成功");
+    }
+    //  3.3当我们数据库连接是失败的时候执行的方法。
+    dbContent.onerror  = function (e) {
+
+    }
+
+
+  </script>
+
+</head>
+<body>
+indexDb学习
+</body>
+
+</html>
